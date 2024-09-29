@@ -4,10 +4,10 @@ import os
 import datetime
 
 # Definir el directorio donde se encuentran los modelos
-model_dir = "/modelos"
+model_dir = "modelos"
 
 # Definir el directorio para guardar los resultados
-output_dir = "/resultados"
+output_dir = "resultados"
 os.makedirs(output_dir, exist_ok=True)
 
 # Obtener la fecha actual
