@@ -55,8 +55,8 @@ report = classification_report(y_test, y_pred, output_dict=True)
 report_df = pd.DataFrame(report).transpose()
 
 # Crear directorios para guardar modelos y resultados
-model_dir = "/modelos"
-results_dir = "/resultados"
+model_dir = "modelos"
+results_dir = "resultados"
 os.makedirs(model_dir, exist_ok=True)
 os.makedirs(results_dir, exist_ok=True)
 
