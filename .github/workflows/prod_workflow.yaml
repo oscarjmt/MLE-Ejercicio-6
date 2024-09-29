@@ -12,25 +12,30 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GH_PAT }}
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.x'  # Configura la versión de Python que necesitas
+        python-version: '3.9'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        python -m pip install setuptools wheel
         pip install -r requirements.txt
 
     - name: Run production script
       run: |
         python script_prod.py
 
-    - name: Add changes to git
+    - name: Commit and push if changed
       run: |
-        git config --local user.email "osjomete@gmail.com"
-        git config --local user.name "Github Actions"
+        git config --local user.email "osjomete@github.com"
+        git config --local user.name "oscarjmt"
         git add .
-        git commit -m "Updated results after data/test.csv change"
-        git push
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Updated results after data/test.csv change" && git push)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
